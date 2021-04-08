@@ -1,5 +1,7 @@
 # [START gae_python38_app]
 # [START gae_python3_app]
+import os
+
 import googleapiclient.discovery
 from flask import Flask, render_template
 
@@ -7,25 +9,26 @@ from flask import Flask, render_template
 # called `app` in `main.py`.
 app = Flask(__name__)
 
+project = os.getenv("GOOGLE_CLOUD_PROJECT")
 
 @app.route('/getstatus')
 def get_server_status():
     compute = googleapiclient.discovery.build('compute', 'v1')
-    result = compute.instances().get(project='mud-host', zone='us-central1-a', instance='game-server-linux').execute()
+    result = compute.instances().get(project=project, zone='us-central1-a', instance='game-server-linux').execute()
     return result['status']
 
 
 @app.route('/startserver')
 def start_server():
     compute = googleapiclient.discovery.build('compute', 'v1')
-    result = compute.instances().start(project='mud-host', zone='us-central1-a', instance='game-server-linux').execute()
+    result = compute.instances().start(project=project, zone='us-central1-a', instance='game-server-linux').execute()
     return get_server_status()
 
 
 @app.route('/stopserver')
 def stop_server():
     compute = googleapiclient.discovery.build('compute', 'v1')
-    result = compute.instances().stop(project='mud-host', zone='us-central1-a', instance='game-server-linux').execute()
+    result = compute.instances().stop(project=project, zone='us-central1-a', instance='game-server-linux').execute()
     return get_server_status()
 
 
