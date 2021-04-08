@@ -9,11 +9,3 @@ handlers:
 libraries:
 - name: flask
   version: 0.12
-- name: google-api-python-client
-  version: 2.1.0
-- name: google-auth
-  version: 1.28.0
-- name: google-api-python-client
-  version: 2.1.0
-- name: google-auth-httplib2
-  version: 0.1.0
